@@ -1,0 +1,47 @@
+/*-- scss:defaults --*/
+
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100..700;1,100..700&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+$presentation-heading-font: "Fira Sans", sans-serif;
+$font-family-sans-serif: "Lato", sans-serif;
+$font-family-monospace: "Space Mono", monospace;
+
+@function theme-color($color) {
+  @return map-get($colors, $color);
+}
+
+$colors: (
+  "red": #FA5F5C,
+  "blue": #99D9DD,
+  "darkblue": #13234B,
+  "yellow": #F4BA02,
+  "white": #FEFEFE
+);
+
+// Set colors
+$body-bg: theme-color("darkblue");
+$link-color: theme-color("blue");
+$code-color: theme-color("blue");
+$body-color: theme-color("white");
+
+$presentation-font-size-root: 40px;
+$presentation-h1-font-size: 80px;
+$presentation-h2-font-size: 60px;
+$code-block-font-size: 0.9em;
+
+
+/*-- scss:rules --*/
+
+.blue {
+  color: theme-color("blue");
+  font-weight: bold;
+}
+
+.yellow {
+  color: theme-color("yellow");
+  font-weight: bold;
+}
+
+.reveal .slide a {
+  text-decoration: underline;
+}
