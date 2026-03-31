@@ -8,7 +8,10 @@ format:
     standalone: true
     slide-number: true
     show-slide-number: all
-
+knitr:
+  opts_chunk:
+    dev: png
+    dev.args: { bg: "transparent" }
 ---
 
 # Hello world
@@ -32,3 +35,14 @@ Some paragraph.
 ## Links
 
 https://slidecrafting-book.com/scss
+
+
+## Plot
+
+```{r, dev = "png", dev.args=list(bg="transparent")}
+library(ggplot2)
+mtcars |>
+  ggplot(aes(disp, mpg, color = factor(am))) +
+  geom_point() +
+  theme_minimal()
+```
