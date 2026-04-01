@@ -12,17 +12,18 @@ $font-family-monospace: "Space Mono", monospace;
 
 $colors: (
   "red": #FA5F5C,
-  "blue": #99D9DD,
-  "darkblue": #13234B,
+  "blue": #61a7ac,
+  "darkblue": #2c488f,
   "yellow": #F4BA02,
-  "white": #FEFEFE
+  "white": #FEFEFE,
+  "lightgray": #ebebeb
 );
 
 // Set colors
-$body-bg: theme-color("darkblue");
+$body-bg: theme-color("white");
 $link-color: theme-color("blue");
 $code-color: theme-color("blue");
-$body-color: theme-color("white");
+$body-color: theme-color("darkblue");
 
 $presentation-font-size-root: 40px;
 $presentation-h1-font-size: 80px;

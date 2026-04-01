@@ -1,6 +1,6 @@
 ---
 title: "Notes"
-format: 
+format:
   html:
     self-contained: true
 ---
@@ -8,26 +8,26 @@ format:
 ## Planning
 
 1. Use cases
-    - Creating a datasheet (EGK)
+    - Creating a data sheet (EGK)
     - Finding errors (KMM)
-    - Joining & pivoting (EGK) 
-    - Making beautiful figures & remaking (KMM) 
+    - Joining & pivoting (EGK)
+    - Making beautiful figures & remaking (KMM)
     - Stats (the hard way is the easy way) & redoing stats & analysis reports (EGK)
     - Doing the same thing to lots of things (EGK)
     - Reproducible instructions & code (KMM)
     - Slides & presentations & papers & websites & CV (KMM)
-1. Intro to R/Rstudio & Reproducibility (EGK)
+1. Intro to R/RStudio & Reproducibility (EGK)
     - Structure & packages
     - Tidyverse
 1. Roadmaps for different levels (EGK)
     - Levels
-      - No R 
+      - No R
       - Tried R, gave up, little bit
-      - Some R (maybe stats only) 
+      - Some R (maybe stats only)
       - Use R regularly but still don't feel confident
     - Interactive activities for each
 1. Roadmaps for different skills (KMM)
-    - Skills 
+    - Skills
       - Data Viz
       - Data Wrangling & coding
       - Stats
@@ -38,5 +38,3 @@ format:
     - What is your current skill level/experience?
     - Why are you here?
     - What do you most want to learn/get better at?
-
-
