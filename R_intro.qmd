@@ -68,6 +68,10 @@ knitr:
 
 ## Use Cases
 
+## Visualization
+
+![](https://cdn.fosstodon.org/media_attachments/files/116/209/557/460/653/062/original/ce83839bc0622920.png)
+
 
 ## Introduction to R/RStudio & Reproducibility
 
