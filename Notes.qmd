@@ -33,8 +33,8 @@ format:
       - Stats
       - Presentation & reporting
     - Interactive activities for each
-1. Links to Github (KMM)
+1. ~~Links to Github (KMM)~~
 1. Interactive Questions Throughout
-    - What is your current skill level/experience?
     - Why are you here?
+    - What is your current skill level/experience?
     - What do you most want to learn/get better at?
