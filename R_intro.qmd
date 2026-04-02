@@ -1,5 +1,6 @@
 ---
-title: "Untitled"
+title: "Introduction to R"
+subtitle: "For the R-Curious"
 format:
   revealjs:
     theme: [default, styles.scss]
@@ -14,7 +15,69 @@ knitr:
     dev.args: { bg: "transparent" }
 ---
 
-# Hello world
+## Who are we?
+
+:::: {.columns}
+
+::: {.column width="50%"}
+**Dr. Elizabeth King** (she/her)
+
+- Grew up in Southeastern Wisconsin (until 7th grade) $\rightarrow$ Chicago-land
+- Iowa (4 years) $\rightarrow$ California (10 years) $\rightarrow$ Missouri
+- MU 12 years in Biology
+:::
+
+::: {.column width="50%"}
+**Dr. Kevin Middleton** (he/him)
+
+- Grew up in Florida
+- North Carolina $\rightarrow$ Rhode Island (10 years) $\rightarrow$ California (1 year) $\rightarrow$ Rhode Island (1 year) $\rightarrow$ California (5 years) $\rightarrow$ Missouri
+- MU 14 years (10 in Medicine, 4 in Biology)
+
+:::
+
+::::
+
+<hr />
+
+. . .
+
+- Biologists by training
+- Engineers, theoreticians, statisticians, and programmers by avocation
+- We are married.
+
+
+## Why are we here?
+
+- Programming/data skills are increasingly important for you as researchers, regardless of field
+- Making research more reproducible benefits all of us
+- Think deeply about what you want to accomplish (statistics, data visualization)
+- You might find that you really enjoy it
+
+
+## Why are you here?
+
+
+## Outline
+
+- Use cases
+- Introduction to R/RStudio & Reproducibility
+- Roadmaps for different levels of learners
+- Roadmaps for different specific skills
+
+
+## Use Cases
+
+
+## Introduction to R/RStudio & Reproducibility
+
+
+## Roadmaps for different levels of learners
+
+
+## Roadmaps for different specific skills
+
+
 
 ## Slide 2
 
