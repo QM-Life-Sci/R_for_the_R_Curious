@@ -58,7 +58,7 @@ knitr:
 ## Why are you here?
 
 
-## Outline
+# Outline
 
 - Use cases
 - Introduction to R/RStudio & Reproducibility
@@ -66,11 +66,39 @@ knitr:
 - Roadmaps for different specific skills
 
 
-## Use Cases
+# Use Cases
 
-## Visualization
+- R is a general purpose programming language (that is optimized for statistics and data visualization)
+- You can do all of these things in other languages (some easier and most more difficult)
+
+
+## Creating a data sheet (EGK)
+
+
+## Joining & pivoting (EGK)
+
+
+## Exploratory Data Analysis (KMM)
+
+
+## Finding Errors (KMM)
+
+
+## Making beautiful figures (KMM)
 
 ![](https://cdn.fosstodon.org/media_attachments/files/116/209/557/460/653/062/original/ce83839bc0622920.png)
+
+
+## Stats (the hard way now is the easy way later) & redoing stats & analysis reports (EGK)
+
+
+## Doing the same thing to lots of things (EGK)
+
+
+## Reproducible instructions & code (KMM)
+
+
+## Slides & presentations & papers & websites & CV (KMM)
 
 
 ## Introduction to R/RStudio & Reproducibility
@@ -82,6 +110,10 @@ knitr:
 ## Roadmaps for different specific skills
 
 
+# Roadmaps for different levels of learners
+
+
+# Roadmaps for different specific skills
 
 ## Slide 2
 
