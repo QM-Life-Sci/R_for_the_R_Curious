@@ -46,3 +46,11 @@ $code-block-font-size: 0.9em;
 .reveal .slide a {
   text-decoration: underline;
 }
+
+.reveal .slides section:has(> h1) {
+  background-color: theme-color("darkblue");
+
+  h1 {
+    color: theme-color("white");
+  }
+}
