@@ -59,16 +59,16 @@ library(tidyverse)
 
 - Programming/data skills are increasingly important for you as researchers, regardless of field
 - Making research more reproducible benefits all of us
-- Think deeply about what you want to accomplish (statistics, data visualization)
+- We have a strong interest in empowering trainees to gain data science skills
 - You might find that you really enjoy it
 
 
 ## Why are you here?
 
 
-# Outline
+## Outline
 
-- Use cases
+- Example use cases
 - Introduction to R/RStudio & Reproducibility
 - Roadmaps for different levels of learners
 - Roadmaps for different specific skills
@@ -76,16 +76,38 @@ library(tidyverse)
 
 # Use Cases
 
-- R is a general purpose programming language (that is optimized for statistics and data visualization)
-- You can do all of these things in other languages (some easier and many more difficult)
-- R enforces an "ask for what you want" statistical approach
-
 
 ## Creating a data sheet (EGK)
 
+```{r}
+#| echo: true
+
+reps  <- paste0("R",1:3)
+treats <- c("C", "DR", "HS")
+lines <- c(paste(1:12,"DA", sep="."),
+           paste(1:12,"FA", sep="."),
+           paste(1:12,"HS", sep="."))
+dat.tab <- crossing(lines, treats, reps) |>
+  arrange(reps)
+box.r <- tibble(box = rep(paste0("box_",1:4), each=100),
+                x = rep(rep(1:10,each=10), 4),
+                y = rep(rep(1:10,10),4)
+)
+box.r <- box.r[c(sample(1:100),sample(101:200),sample(201:300), sample(301:400)),]               
+dat.tab <- cbind(dat.tab,box.r[1:nrow(dat.tab),])
+write_csv(dat.tab, "UseCase_datatable1.csv")
+
+dat.tab |>
+  arrange(box,x,y) |> 
+  write_csv("UseCase_datatable2.csv")
+
+```
 
 ## Joining & pivoting (EGK)
 
+- note - one ds for set up, one for data in cols
+- join on set up date
+- pivot on cols
 
 ## Exploratory Data Analysis
 
@@ -124,6 +146,8 @@ ggplot(ds, aes(x = x, y = y)) +
 
 ## Finding Errors (KMM)
 
+## Doing the same thing to lots of things (EGK)
+
 
 ## Making beautiful figures (KMM)
 
@@ -131,9 +155,6 @@ ggplot(ds, aes(x = x, y = y)) +
 
 
 ## Stats (the hard way now is the easy way later) & redoing stats & analysis reports (EGK)
-
-
-## Doing the same thing to lots of things (EGK)
 
 
 ## Reproducible instructions & code (KMM)
@@ -144,17 +165,24 @@ ggplot(ds, aes(x = x, y = y)) +
 
 ## Introduction to R/RStudio & Reproducibility
 
-
-## Roadmaps for different levels of learners
-
-
-## Roadmaps for different specific skills
+- R is a general purpose programming language (that is optimized for statistics and data visualization)
+- You can do all of these things in other languages (some easier and many more difficult)
+- R enforces an "ask for what you want" statistical approach
 
 
 # Roadmaps for different levels of learners
 
+## What is your current skill level/experience?
+
+## Roadmaps for different levels of learners
+QR code for each then slide with grid of instructions
 
 # Roadmaps for different specific skills
+
+## What do you most want to learn/get better at?
+
+
+
 
 ## Slide 2
 
