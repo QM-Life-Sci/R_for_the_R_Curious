@@ -15,6 +15,14 @@ knitr:
     dev.args: { bg: "transparent" }
 ---
 
+```{r}
+#| messages: false
+#| warning: false
+
+library(tidyverse)
+```
+
+
 ## Who are we?
 
 :::: {.columns}
@@ -69,7 +77,8 @@ knitr:
 # Use Cases
 
 - R is a general purpose programming language (that is optimized for statistics and data visualization)
-- You can do all of these things in other languages (some easier and most more difficult)
+- You can do all of these things in other languages (some easier and many more difficult)
+- R enforces an "ask for what you want" statistical approach
 
 
 ## Creating a data sheet (EGK)
@@ -78,7 +87,39 @@ knitr:
 ## Joining & pivoting (EGK)
 
 
-## Exploratory Data Analysis (KMM)
+## Exploratory Data Analysis
+
+```{r}
+ds <- read_csv(
+  "https://raw.githubusercontent.com/QM-Life-Sci/RDABR/refs/heads/main/data/Datasaurus_data.csv",
+  col_names = c("x", "y"),
+  show_col_types = FALSE
+)
+knitr::kable(head(ds))
+```
+
+Correlation test:
+
+```{r}
+cor.test(ds$x, ds$y)
+```
+
+
+## Exploratory Data Analysis
+
+```{r}
+#| fig-alt: "Scatterplot that looks like a dinosaur."
+
+ggplot(ds, aes(x = x, y = y)) +
+  geom_point(color = "navy") +
+  scale_x_continuous(limits = c(0, 100)) +
+  scale_y_continuous(limits = c(0, 100)) +
+  coord_fixed() +
+  labs(
+    caption = expression(paste("Alberto Cairo's ", italic("Datasaurus")))
+  ) +
+  theme_classic()
+```
 
 
 ## Finding Errors (KMM)
