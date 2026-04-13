@@ -55,6 +55,10 @@ library(tidyverse)
 - We are married.
 
 
+## A Bit of History
+
+
+
 ## Why are we here?
 
 - Programming/data skills are increasingly important for you as researchers, regardless of field
@@ -82,23 +86,28 @@ library(tidyverse)
 ```{r}
 #| echo: true
 
-reps  <- paste0("R",1:3)
+reps <- paste0("R", 1:3)
 treats <- c("C", "DR", "HS")
-lines <- c(paste(1:12,"DA", sep="."),
-           paste(1:12,"FA", sep="."),
-           paste(1:12,"HS", sep="."))
+lines <- c(
+  paste(1:12, "DA", sep = "."),
+  paste(1:12, "FA", sep = "."),
+  paste(1:12, "HS", sep = ".")
+)
 dat.tab <- crossing(lines, treats, reps) |>
   arrange(reps)
-box.r <- tibble(box = rep(paste0("box_",1:4), each=100),
-                x = rep(rep(1:10,each=10), 4),
-                y = rep(rep(1:10,10),4)
+box.r <- tibble(
+  box = rep(paste0("box_", 1:4), each = 100),
+  x = rep(rep(1:10, each = 10), 4),
+  y = rep(rep(1:10, 10), 4)
 )
-box.r <- box.r[c(sample(1:100),sample(101:200),sample(201:300), sample(301:400)),]               
-dat.tab <- cbind(dat.tab,box.r[1:nrow(dat.tab),])
+box.r <- box.r[
+  c(sample(1:100), sample(101:200), sample(201:300), sample(301:400)),
+]
+dat.tab <- cbind(dat.tab, box.r[1:nrow(dat.tab), ])
 write_csv(dat.tab, "UseCase_datatable1.csv")
 
 dat.tab |>
-  arrange(box,x,y) |> 
+  arrange(box, x, y) |>
   write_csv("UseCase_datatable2.csv")
 
 ```
