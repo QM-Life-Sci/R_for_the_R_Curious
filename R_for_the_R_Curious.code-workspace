@@ -5,6 +5,13 @@
     }
   ],
   "settings": {
-    "cSpell.words": ["Datasaurus", "knitr", "revealjs", "Scatterplot"]
+    "cSpell.words": [
+      "abline",
+      "Datasaurus",
+      "knitr",
+      "qvalue",
+      "revealjs",
+      "Scatterplot"
+    ]
   }
 }

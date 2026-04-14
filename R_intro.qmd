@@ -55,16 +55,198 @@ library(tidyverse)
 - We are married.
 
 
-## A Bit of History
-
-
-
 ## Why are we here?
 
 - Programming/data skills are increasingly important for you as researchers, regardless of field
 - Making research more reproducible benefits all of us
 - We have a strong interest in empowering trainees to gain data science skills
 - You might find that you really enjoy it
+
+
+## Kevin's History
+
+- Kid:
+    - Computers around
+    - Lots of programming
+- Graduate student:
+    - Refused to take statisticsDid a little "analysis automation" with scripts
+    - Tried R a few times and gave up -- "What am I supposed to do with this: `>`?"
+
+
+## Kevin's History
+
+- Post-doc:
+    - SAS / SPSS,
+    - Tried R a few more times and gave up
+        - Needed to do something that was only in R
+        - Learned enough R to do that one thing
+        - Liked it and learned more
+- Faculty member:
+    - Didn't want to pay for SAS / SPSS
+    - Didn't want to tie students to non-free software
+
+
+## First script {.smaller}
+
+```{r}
+#| eval: false
+#| echo: true
+
+#file /Users/kmm/Documents/Work/Projects/Bone/g16_bone - 20 mo (Middleton)/R/qvalue analysis.r
+
+# Created: 31 Jan 2006 by Kevin Middleton
+# Modifications:
+#		19 Feb 2006: Added expected null line to histogram.
+#		20 Feb 2006: Added "prob=TRUE" and "las=1" arguments to
+#			hist plotting function. Histogram is now relative (1=null).
+#			pi0 now easy to plot on histogram with abline(h=pi0)
+#		21 Feb 2006: Added analyses 2 (bootstrapping) & 3 (lambda = 0).
+#		22 Mar 2006: Added comparative analyses at end (robust, various FDR)
+#		10 Aug 2006: Now loading pvalues_final.txt
+
+# False discovery rate on g16 bone p values
+# Data are derived from final tables (1 & 3) of g16 bone ms.
+
+library(qvalue)
+
+setwd(
+  "/Users/kmm/Documents/Work/Projects/Bone/g16_bone - 20 mo (Middleton)/R"
+)
+
+# Read the data in to a vector
+# bonep_reduced_further.txt is a plain text file with 1 p value per row
+# 	This file was created using the p vaules from the final tables of the
+#	g16 bone manuscript
+pvals <- scan("pvalues_final.txt")
+
+pvals <- sort(pvals, decreasing = TRUE)
+
+# Check distribution of p values.
+#pdf(file="/Users/kmm/Documents/Work/R/FDR/hedenfalk/g16_histogram2.pdf", height=6, width=6, horizontal=F)
+hist(
+  pvals,
+  breaks = 20,
+  prob = TRUE,
+  las = 1,
+  xlab = "p value",
+  ylab = "Relative Frequency",
+  main = ""
+)
+abline(h = 1, col = 4, lty = 2, lwd = 2)
+abline(h = .704, col = "red", lty = 3, lwd = 2)
+#dev.off()
+#abline(h=length(pvals)/20,col=4,lty=2)
+
+######## ANALYSIS 1 - DEFAULT PARAMETERS ########
+# Perform FDR using default parameters:
+#	lambda = seq(0, 0.9, 0.05)
+#	pi0.method = "smoother"
+#	fdr.level = NULL
+#	robust = FALSE
+#	smooth.df = 3
+#	smooth.log.pi0 = FALSE
+qobj.def <- qvalue(pvals)
+
+# Open a new plotting window
+quartz(width = 7, height = 7)
+
+# Plot the qvalue diagnostic graphs
+qplot(qobj.def)
+
+# Print out qvalue summary information
+qsummary(qobj.def)
+
+# Need to learn what this value represents
+1 - qobj.def$pi0
+
+# Calculate new alpha level
+max(qobj.def$pvalues[qobj.def$qvalues <= 0.05])
+
+# Write output to text file
+qwrite(qobj.def, filename = "qvalue_default_settings.txt")
+
+
+######## ANALYSIS 2 - pi0.method = "bootstrap" ########
+# Dabney & Storey (qvalue manual) say that for small numbers of p values
+#	the "bootstrap" methods described in Storey et al. (2004) is a better
+#	estimator of pi0
+
+# Perform FDR with bootstrapping:
+#	pi0.method = "bootstrap"
+qobj.boot <- qvalue(pvals, pi0.method = "bootstrap")
+
+# Open a new plotting window
+quartz(width = 7, height = 7)
+
+# Plot the qvalue diagnostic graphs
+#pdf(file="/Users/kmm/Documents/Work/R/FDR/hedenfalk/g16_qplot.pdf", height=6, width=6, horizontal=F)
+qplot(qobj.boot)
+#dev.off()
+
+# Print out qvalue summary information
+qsummary(qobj.boot)
+
+# Need to learn what this value represents
+1 - qobj.boot$pi0
+
+# Calculate new alpha level
+max(qobj.boot$pvalues[qobj.boot$qvalues <= 0.05])
+
+# Write output to text file
+qwrite(qobj.boot, filename = "qvalue_bootstrap.txt")
+
+
+######## ANALYSIS 3 - Benjamini & Hochberg (1995) ########
+# Dabney & Storey (qvalue manual) state that setting lamdba = 0
+#	will force pi0 = 1, approximating the assumptions implicit in
+# 	Benjamini & Hochberg (1995)
+
+# Perform FDR with lambda = 0:
+#	lambda = 0
+qobj.bh <- qvalue(pvals, lambda = 0)
+
+# Open a new plotting window
+quartz(width = 7, height = 7)
+
+# Plot the qvalue diagnostic graphs
+qplot(qobj.bh)
+
+# Print out qvalue summary information
+qsummary(qobj.bh)
+
+# Need to learn what this value represents
+1 - qobj.bh$pi0
+
+# Calculate new alpha level
+max(qobj.bh$pvalues[qobj.bh$qvalues <= 0.05])
+
+# Write output to text file
+qwrite(qobj.bh, filename = "qvalue_bh.txt")
+
+
+qobj.boot <- qvalue(pvals, pi0.method = "bootstrap", fdr.level = 0.05)
+qobj.boot.robust <- qvalue(
+  pvals,
+  pi0.method = "bootstrap",
+  robust = TRUE,
+  fdr.level = 0.05
+)
+qobj.lambda0_0.05 <- qvalue(pvals, lambda = 0, fdr.level = 0.05)
+qobj.lambda0_0.10 <- qvalue(pvals, lambda = 0, fdr.level = 0.10)
+qwrite(qobj.boot, file = "qobj.boot.txt")
+qwrite(qobj.boot.robust, file = "qobj.boot.robust.txt")
+qwrite(qobj.lambda0_0.05, file = "qobj.lambda0_0.05.txt")
+qwrite(qobj.lambda0_0.10, file = "qobj.lambda0_0.10.txt")
+```
+
+
+## When did I feel comfortable teaching with R?
+
+- 2010: First graduate course
+- 2011-2012: Undergraduate courses
+- 2016: First graduate course at MU
+- 2017: Start co-teaching Quantitative Methods in Life Sciences
+- 2025-2026: Undergraduate courses at MU
 
 
 ## Why are you here?
