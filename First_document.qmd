@@ -1,0 +1,55 @@
+---
+title: "First Document"
+format: html
+editor: visual
+---
+
+```{r}
+library(tidyverse)
+```
+
+
+## Load data
+
+```{r}
+Tri <- read_csv("https://tinyurl.com/NHANES-Data") |>
+  filter(Triglycerides < 1000)
+
+glimpse(Tri)
+
+# read_csv("data/NHANES_Triglycerides.csv")
+```
+
+
+## Make a plot
+
+```{r}
+ggplot(Tri, aes(x = Waist, y = Triglycerides)) +
+  geom_point(color = "darkred") +
+  facet_grid(Sex ~ .) +
+  theme_minimal()
+```
+
+
+## Statistics!
+
+~ = "is modeled by"
+
+```{r}
+# Simple bivariate model of Waist
+ols_model <- lm(Triglycerides ~ Waist, data = Tri)
+summary(ols_model)
+```
+
+Model with Sex as a predictor.
+
+```{r}
+# Add sex predictor
+ols_model2 <- lm(Triglycerides ~ Waist + Sex, data = Tri)
+summary(ols_model2)
+
+# Add interaction
+ols_model3 <- lm(Triglycerides ~ Waist * Sex, data = Tri)
+summary(ols_model3)
+```
+

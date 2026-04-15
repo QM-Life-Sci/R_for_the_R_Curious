@@ -593,18 +593,12 @@ for (i in 1:patch.N) {
 
 ## Discussion
 
-- What do you need for what you want to use R for?
+> What do you need for what you want to use R for?
 
 
-# Roadmaps for different levels of learners {background-color="#2c488f"}
+# Your Roadmap for Learning R  {background-color="#2c488f"}
 
 ## Resources
 
 [https://tinyurl.com/QMLS-Resources](https://tinyurl.com/QMLS-Resources)
 
-
-## Roadmaps for different levels of learners
-
-QR code for each then slide with grid of instructions
-
-# Roadmaps for different specific skills {background-color="#2c488f"}
