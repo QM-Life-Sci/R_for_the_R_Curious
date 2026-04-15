@@ -23,6 +23,22 @@ library(tidyverse)
 set.seed(3272)
 ```
 
+## If you don't have R and RStudio
+
+- [r-project.org](https://www.r-project.org/)
+    - Download R version for your operating system
+- [Posit RStudio](https://posit.co/download/rstudio-desktop)
+    - Download RStudio version for your operating system
+- Run the installers
+    - Defaults okay
+- We will use these later.
+
+<hr />
+
+No laptop?
+
+- Sit next to someone -- group work.
+
 
 ## Who are we?
 
@@ -249,11 +265,11 @@ qwrite(qobj.lambda0_0.10, file = "qobj.lambda0_0.10.txt")
 
 ## When did I feel comfortable teaching with R?
 
-- 2010: First graduate course
-- 2011-2012: Undergraduate courses
+- 2010: First graduate course (CSU San Bernardino)
+- 2011-2012: Undergraduate courses (CSU San Bernardino)
 - 2016: First graduate course at MU
-- 2017: Start co-teaching Quantitative Methods in Life Sciences with Libby
-- 2025-2026: Undergraduate courses at MU
+- 2017: Start co-teaching *Quantitative Methods in Life Sciences* with Libby (almost every year since)
+- 2025, 2026: Developing undergraduate courses in Biological Sciences
 
 
 ## Libby's History
@@ -263,6 +279,7 @@ qwrite(qobj.lambda0_0.10, file = "qobj.lambda0_0.10.txt")
 - Lots of math in college
   - Linear algebra, differential equations, calculus-based statistics
 
+
 ## Libby's History
 
 In Graduate School:
@@ -271,203 +288,197 @@ In Graduate School:
 - Took graduate-level Multivariate Statistics (SAS)
 - Took graduate-level Computer-Intensive Statistical Methods (S-PLUS)
 
+
 ## Simulation Model Dissertation Chapter {.smaller}
 
 ```{r}
 #| echo: true
 #| eval: false
 
-rm(N,h2,Ra.ab,Rp.ab,Ra.ap,Rp.ap,Ra.az,Rp.az,Ra.bp,Rp.bp,Ra.bz,Rp.bz,Ra.pz,Rp.pz,Given.Hmatrix,
-H2,Mean.A,Mean.E,CovP,CovA,CovE,N.minus.1,n,patch.N,muR,sdR,X,Trait.E,Trait.A,Trait.P,Prop.LW,
-Z.LW,a,b,L,Wing,p,z,PA,Traits.Allocate,pop.means,bv.a,bv.b,bv.p,bv.z,BV.LW,n.lw,pm,mig.matrix,p.lx)
-
 set.seed(19)
 
 #inputs
-	patch.N<-7 #number of patches
-	
-	n <- matrix(100,patch.N)  		#number of individuals in patch #needs to be matrix
+patch.N <- 7 #number of patches
+
+n <- matrix(100, patch.N) #number of individuals in patch #needs to be matrix
 
 # program to set up initial covariance matrices and generate initial population
 # Given.Hmatrix is a dataframe with genetic correlations in upper diagonal
 # heritabilities along the diagonal and phenotypic correlations in the lower diagonal
 
-	N			<- 4 							# Number of traits
+N <- 4 # Number of traits
 
 ############create Given.Hmatrix################
-	Given.Hmatrix		<-matrix(0,N,N)	
-		# a=liability, b=gxe liability, p=prop allocate, z=gxe allocate	
-	
-	h2		 			<- c(0.51,0.52,0.53,0.54)		# heritabilities of traits a, b, p, z
-	Ra.ab 				<-0.1   #liability and gxe liability
-	Rp.ab 				<-0.12	 
-	Ra.ap 				<-0.2   #liability and prop allocate
-	Rp.ap 				<-0.22  
-	Ra.az 				<-0.3   #liability and gxe allocate
-	Rp.az 				<-0.33
-	Ra.bp 				<-0.4   #gxe liability and prop allocate
-	Rp.bp	 			<-0.44
-	Ra.bz 				<-0.5	 #gxe liability and gxe allocate
-	Rp.bz 				<-0.55
-	Ra.pz 				<-0.6	 #prop allocate and gxe allocate
-	Rp.pz 				<-0.66
+Given.Hmatrix <- matrix(0, N, N)
+# a=liability, b=gxe liability, p=prop allocate, z=gxe allocate
 
-	diag(Given.Hmatrix)	<-h2		#puts above into Given.Hmatrix
-	Given.Hmatrix[1,2]	<-Ra.ab 
-	Given.Hmatrix[1,3]	<-Ra.ap
-	Given.Hmatrix[1,4]	<-Ra.az
-	Given.Hmatrix[2,3]	<-Ra.bp
-	Given.Hmatrix[2,4]	<-Ra.bz
-	Given.Hmatrix[3,4]	<-Ra.pz
+h2 <- c(0.51, 0.52, 0.53, 0.54) # heritabilities of traits a, b, p, z
+Ra.ab <- 0.1 #liability and gxe liability
+Rp.ab <- 0.12
+Ra.ap <- 0.2 #liability and prop allocate
+Rp.ap <- 0.22
+Ra.az <- 0.3 #liability and gxe allocate
+Rp.az <- 0.33
+Ra.bp <- 0.4 #gxe liability and prop allocate
+Rp.bp <- 0.44
+Ra.bz <- 0.5 #gxe liability and gxe allocate
+Rp.bz <- 0.55
+Ra.pz <- 0.6 #prop allocate and gxe allocate
+Rp.pz <- 0.66
 
-	Given.Hmatrix[2,1]	<-Rp.ab
-	Given.Hmatrix[3,1]	<-Rp.ap
-	Given.Hmatrix[4,1]	<-Rp.az
-	Given.Hmatrix[3,2]	<-Rp.bp
-	Given.Hmatrix[4,2]	<-Rp.bz
-	Given.Hmatrix[4,3]	<-Rp.pz
-	
-	Given.Hmatrix			<-data.frame(Given.Hmatrix)
-	H2	 					<- Given.Hmatrix 			# Given.Hmatrix CW W5 ICG GR	
+diag(Given.Hmatrix) <- h2 #puts above into Given.Hmatrix
+Given.Hmatrix[1, 2] <- Ra.ab
+Given.Hmatrix[1, 3] <- Ra.ap
+Given.Hmatrix[1, 4] <- Ra.az
+Given.Hmatrix[2, 3] <- Ra.bp
+Given.Hmatrix[2, 4] <- Ra.bz
+Given.Hmatrix[3, 4] <- Ra.pz
+
+Given.Hmatrix[2, 1] <- Rp.ab
+Given.Hmatrix[3, 1] <- Rp.ap
+Given.Hmatrix[4, 1] <- Rp.az
+Given.Hmatrix[3, 2] <- Rp.bp
+Given.Hmatrix[4, 2] <- Rp.bz
+Given.Hmatrix[4, 3] <- Rp.pz
+
+Given.Hmatrix <- data.frame(Given.Hmatrix)
+H2 <- Given.Hmatrix # Given.Hmatrix CW W5 ICG GR
 
 
 # Initial Additive genetic means for each patch
-	Mean.A		<-matrix(0,patch.N,N)		# Additive genetic means
-	Mean.E		<-matrix(0,patch.N,N)		# Environmental mean
+Mean.A <- matrix(0, patch.N, N) # Additive genetic means
+Mean.E <- matrix(0, patch.N, N) # Environmental mean
 
 # Phenotypic Covariance matrix
 # Note that initial covariances set to 1 (arbitrary)
-	CovP 			<- matrix(1,N,N)	# Phenotypic variances
-	diag(CovP)		<- c(1.8,1.53/16,0.67,0.61)				# Sets diagonal elements = variances
-	
-# Establish CovA from h2 and CovP and CovE from CovA and CovP
-	CovA 		<- matrix(0,N,N)
-	CovE		<- matrix(0,N,N)
-	
-	for ( i in 1:N)	
-{
-	CovA[i,i] 		<- CovP[i,i]*H2[i,i]				# Vp*h2
-	CovE[i,i]		<- CovP[i,i]-CovA[i,i]			# Variances See  p77 of Roff 1997
-	if(CovE[i,i] < 0) stop (print(c("CovE cannot be",i,j,CovE[i,i])))
-}							
+CovP <- matrix(1, N, N) # Phenotypic variances
+diag(CovP) <- c(1.8, 1.53 / 16, 0.67, 0.61) # Sets diagonal elements = variances
 
-# Phenotypic and genetic covariances and correlations
-	N.minus.1 <- N-1
-	for( i in 	1:N.minus.1)
-{
-		jj <- i+1
-		for(j in jj:N)
-	{
-		CovP[i,j] <- H2[j,i]*sqrt(CovP[i,i]*CovP[j,j])	# Phenotypic covariance p76 Roff 1997
-		CovP[j,i] <- CovP[i,j]
-		CovA[i,j] <- H2[i,j]*sqrt(CovA[i,i]*CovA[j,j])	# Ra*sqrt(VaxVay), p76
-		CovA[j,i] <- CovA[i,j]
-		CovE[i,j]	<- CovP[i,j]-CovA[i,j]					#  p76
-		CovE[j,i]	<- CovE[i,j]	
-	}
+# Establish CovA from h2 and CovP and CovE from CovA and CovP
+CovA <- matrix(0, N, N)
+CovE <- matrix(0, N, N)
+
+for (i in 1:N) {
+  CovA[i, i] <- CovP[i, i] * H2[i, i] # Vp*h2
+  CovE[i, i] <- CovP[i, i] - CovA[i, i] # Variances See  p77 of Roff 1997
+  if (CovE[i, i] < 0) stop(print(c("CovE cannot be", i, j, CovE[i, i])))
 }
 
-###################SLIBBY PROGRAM###################	
+# Phenotypic and genetic covariances and correlations
+N.minus.1 <- N - 1
+for (i in 1:N.minus.1) {
+  jj <- i + 1
+  for (j in jj:N) {
+    CovP[i, j] <- H2[j, i] * sqrt(CovP[i, i] * CovP[j, j]) # Phenotypic covariance p76 Roff 1997
+    CovP[j, i] <- CovP[i, j]
+    CovA[i, j] <- H2[i, j] * sqrt(CovA[i, i] * CovA[j, j]) # Ra*sqrt(VaxVay), p76
+    CovA[j, i] <- CovA[i, j]
+    CovE[i, j] <- CovP[i, j] - CovA[i, j] #  p76
+    CovE[j, i] <- CovE[i, j]
+  }
+}
 
-for (i in 1:patch.N)
-{
-#Set Resource level for patches
-	muR					<-0 								#mean resource level
-	sdR					<-1 								#sd for resource level
-	X					<-rnorm(patch.N, muR, sdR) 		#generates resource levels for patches
-	X<-as.matrix(X)
-# Generate additive genetic and environmental values using bivariate
-	Trait.E 			<- rmvnorm(n[i,], mean=Mean.E[i,], cov=CovE, d=N) #environmental values
-	Trait.A 			<- rmvnorm(n[i,], mean=Mean.A[i,], cov=CovA, d=N) #additive genetic values
+################### SLIBBY PROGRAM ###################
 
-# Phenotypic value = sum of above
-	Trait.P 			<- Trait.E + Trait.A							 #phenotypic values
+for (i in 1:patch.N) {
+  #Set Resource level for patches
+  muR <- 0 #mean resource level
+  sdR <- 1 #sd for resource level
+  X <- rnorm(patch.N, muR, sdR) #generates resource levels for patches
+  X <- as.matrix(X)
+  # Generate additive genetic and environmental values using bivariate
+  Trait.E <- rmvnorm(n[i, ], mean = Mean.E[i, ], cov = CovE, d = N) #environmental values
+  Trait.A <- rmvnorm(n[i, ], mean = Mean.A[i, ], cov = CovA, d = N) #additive genetic values
 
-# Wing morph
-	
-	Prop.LW				<- 0.83				# Proportion LW is proportion greater than threshold
-	Z.LW					<- -qnorm(Prop.LW)	#need to specify mean?
+  # Phenotypic value = sum of above
+  Trait.P <- Trait.E + Trait.A #phenotypic values
 
-	a						<- Trait.P[,1]
-	b						<- Trait.P[,2]
-	L						<-a+b*X[i,] 				#liability
-	Wing					<-L
-	Wing[L < Z.LW]		<-0     				#sw
-	Wing[L > Z.LW]		<-1     				#lw  
-	
-#*************#RL shift###not yet coded
-	
-# Proportion Allocated
-	p								<- Trait.P[,3]
-	z								<- Trait.P[,4]
-	PA								<- p+z*X[i,] 				#p(allocate)
-		
-	PA[PA < 0] 					<- 0					# Set p = 0 if < 0
-	PA[PA > 1] 					<- 1					# Set p = 1 if < 1
+  # Wing morph
 
-Traits.Allocate					<-cbind(Wing,PA)		
-	
-# Set all SW as having a PA of 0
-Traits.Allocate[Traits.Allocate[,1]<0.5,2]		<-0
+  Prop.LW <- 0.83 # Proportion LW is proportion greater than threshold
+  Z.LW <- -qnorm(Prop.LW) #need to specify mean?
 
-####mate individuals randomly within patches###
-pop.means		<-as.matrix(colMeans(Trait.A))
+  a <- Trait.P[, 1]
+  b <- Trait.P[, 2]
+  L <- a + b * X[i, ] #liability
+  Wing <- L
+  Wing[L < Z.LW] <- 0 #sw
+  Wing[L > Z.LW] <- 1 #lw
 
-bv.a			<-(Trait.A[,1]+pop.means[1,1])/2
-bv.b			<-(Trait.A[,2]+pop.means[2,1])/2
-bv.p			<-(Trait.A[,3]+pop.means[3,1])/2
-bv.z			<-(Trait.A[,4]+pop.means[4,1])/2
-BV				<-cbind(Traits.Allocate,bv.a,bv.b,bv.p,bv.z)  #have bv migrate? or traits all?
+  #*************#RL shift###not yet coded
 
-#separate LW and SW
-BV.SW						<-BV[BV[,1]==0,]
-BV.LW						<-BV[BV[,1]==1,]
-n.lw						<-length(BV.LW[,1]) #number of lw in patch
-n.sw						<-n[i,]-n.lw
-######MIGRATION########################################################################
+  # Proportion Allocated
+  p <- Trait.P[, 3]
+  z <- Trait.P[, 4]
+  PA <- p + z * X[i, ] #p(allocate)
 
+  PA[PA < 0] <- 0 # Set p = 0 if < 0
+  PA[PA > 1] <- 1 # Set p = 1 if < 1
 
-#assign 0 prob to all SW
-#m.vector			<-rep(0,length(BV.SW[,1]))
-#BV.SW				<-cbind(BV.SW,m.vector)
+  Traits.Allocate <- cbind(Wing, PA)
 
-#determine migrants
-#pm					<-0.5 #begin with constant proportion- to be function of PA[prob in sample]
-#m.vector			<-c(rep(1,pm*n.lw),rep(0,(1-pm)*n.lw))
-#m.vector			<-sample(m.vector)
-#BV.LW				<-cbind(BV.LW,m.vector)
+  # Set all SW as having a PA of 0
+  Traits.Allocate[Traits.Allocate[, 1] < 0.5, 2] <- 0
 
-#separate migrants and nonmigrants
-#BV.nmig						<-BV.LW[BV.LW[,7]==0,]
-#BV.mig							<-BV.LW[BV.LW[,7]==1,]
+  ####mate individuals randomly within patches###
+  pop.means <- as.matrix(colMeans(Trait.A))
 
-#####combine sw with non migrants## 
-#BV.Total<-rbind(BV.SW,BV.nmig)
+  bv.a <- (Trait.A[, 1] + pop.means[1, 1]) / 2
+  bv.b <- (Trait.A[, 2] + pop.means[2, 1]) / 2
+  bv.p <- (Trait.A[, 3] + pop.means[3, 1]) / 2
+  bv.z <- (Trait.A[, 4] + pop.means[4, 1]) / 2
+  BV <- cbind(Traits.Allocate, bv.a, bv.b, bv.p, bv.z) #have bv migrate? or traits all?
 
-#####send migrants to migrant pool# not yet coded
-#Mig.Pool<-rbind(
+  #separate LW and SW
+  BV.SW <- BV[BV[, 1] == 0, ]
+  BV.LW <- BV[BV[, 1] == 1, ]
+  n.lw <- length(BV.LW[, 1]) #number of lw in patch
+  n.sw <- n[i, ] - n.lw
+  ######MIGRATION########################################################################
 
+  #assign 0 prob to all SW
+  #m.vector			<-rep(0,length(BV.SW[,1]))
+  #BV.SW				<-cbind(BV.SW,m.vector)
 
-####redistribute migrants## not yet coded
-###############################END MIGRATION#########################3333
+  #determine migrants
+  #pm					<-0.5 #begin with constant proportion- to be function of PA[prob in sample]
+  #m.vector			<-c(rep(1,pm*n.lw),rep(0,(1-pm)*n.lw))
+  #m.vector			<-sample(m.vector)
+  #BV.LW				<-cbind(BV.LW,m.vector)
 
-##reproduce##based on PA
-temp		 <-as.matrix(colMeans(BV.LW))
-Mean.bv.lw <-matrix(0,1,N)
-Mean.bv.lw <-(c(temp[3,],temp[4,],temp[5,],temp[6,]))
+  #separate migrants and nonmigrants
+  #BV.nmig						<-BV.LW[BV.LW[,7]==0,]
+  #BV.mig							<-BV.LW[BV.LW[,7]==1,]
 
-temp		 <-as.matrix(colMeans(BV.SW))
-Mean.bv.sw <-matrix(0,1,N)
-Mean.bv.sw <-(c(temp[3,],temp[4,],temp[5,],temp[6,]))
+  #####combine sw with non migrants##
+  #BV.Total<-rbind(BV.SW,BV.nmig)
 
-growth.sw<-1.5
-growth.lw<-1.1
+  #####send migrants to migrant pool# not yet coded
+  #Mig.Pool<-rbind(
 
-n[i,]<-(growth.sw*n.sw)+(growth.lw*n.lw)
-Mean.A[i,]<-(((growth.sw*n.sw)*Mean.bv.sw)+((growth.lw*n.lw)*Mean.bv.lw))/n[i,]
+  ####redistribute migrants## not yet coded
+  ###############################END MIGRATION#########################3333
+
+  ##reproduce##based on PA
+  temp <- as.matrix(colMeans(BV.LW))
+  Mean.bv.lw <- matrix(0, 1, N)
+  Mean.bv.lw <- (c(temp[3, ], temp[4, ], temp[5, ], temp[6, ]))
+
+  temp <- as.matrix(colMeans(BV.SW))
+  Mean.bv.sw <- matrix(0, 1, N)
+  Mean.bv.sw <- (c(temp[3, ], temp[4, ], temp[5, ], temp[6, ]))
+
+  growth.sw <- 1.5
+  growth.lw <- 1.1
+
+  n[i, ] <- (growth.sw * n.sw) + (growth.lw * n.lw)
+  Mean.A[i, ] <- (((growth.sw * n.sw) * Mean.bv.sw) +
+    ((growth.lw * n.lw) * Mean.bv.lw)) /
+    n[i, ]
 }
 
 ```
+
 
 ## Libby's History
 
@@ -476,125 +487,51 @@ Mean.A[i,]<-(((growth.sw*n.sw)*Mean.bv.sw)+((growth.lw*n.lw)*Mean.bv.lw))/n[i,]
     - Learned Perl, bash, remote computers, etc.
     - Used R every day
 
+
 ## Our Shared History
 
 - Both learning R at the same time
 - Helped each other
 - Worked together
 - Sent help resources to each other
+- Developed courses together
+
 
 ## Roadmap to Feeling Confident
 
-1. Practice (Regularly) 
+1. Practice (Regularly)
 
 > What is something you are good at?
+
 
 # Some questions about you {background-color="#2c488f"}
 
 
-## Outline
+## Outline for today
 
 - Example use cases
 - Introduction to R/RStudio & Reproducibility
+- Practice
 - Roadmaps for different levels of learners
 - Roadmaps for different specific skills
 
 
-# Use Cases {background-color="#2c488f"}
+## Things you can do in R/RStudio
+
+- Making blank data sheets
+- Data wrangling (joins, pivots, finding and correcting errors)
+- Statistics and data analysis
+- Publication-ready data visualizations
+- Reproducible manuscripts, reports, books, dissertations
+- Slides
+- CVs and Websites
 
 
-## Creating a data sheet (EGK)
+## What tools do we use?
 
-```{r}
-#| echo: true
-
-reps <- paste0("R", 1:3)
-treats <- c("C", "DR", "HS")
-lines <- c(
-  paste(1:12, "DA", sep = "."),
-  paste(1:12, "FA", sep = "."),
-  paste(1:12, "HS", sep = ".")
-)
-dat.tab <- crossing(lines, treats, reps) |>
-  arrange(reps)
-box.r <- tibble(
-  box = rep(paste0("box_", 1:4), each = 100),
-  x = rep(rep(1:10, each = 10), 4),
-  y = rep(rep(1:10, 10), 4)
-)
-box.r <- box.r[
-  c(sample(1:100), sample(101:200), sample(201:300), sample(301:400)),
-]
-dat.tab <- cbind(dat.tab, box.r[1:nrow(dat.tab), ])
-write_csv(dat.tab, "UseCase_datatable1.csv")
-
-dat.tab |>
-  arrange(box, x, y) |>
-  write_csv("UseCase_datatable2.csv")
-
-```
-
-
-## Joining & pivoting (EGK)
-
-- note - one ds for set up, one for data in cols
-- join on set up date
-- pivot on cols
-
-
-## Exploratory Data Analysis
-
-```{r}
-ds <- read_csv(
-  "https://raw.githubusercontent.com/QM-Life-Sci/RDABR/refs/heads/main/data/Datasaurus_data.csv",
-  col_names = c("x", "y"),
-  show_col_types = FALSE
-)
-knitr::kable(head(ds))
-```
-
-Correlation test:
-
-```{r}
-cor.test(ds$x, ds$y)
-```
-
-
-## Exploratory Data Analysis
-
-```{r}
-#| fig-alt: "Scatterplot that looks like a dinosaur."
-
-ggplot(ds, aes(x = x, y = y)) +
-  geom_point(color = "navy") +
-  scale_x_continuous(limits = c(0, 100)) +
-  scale_y_continuous(limits = c(0, 100)) +
-  coord_fixed() +
-  labs(
-    caption = expression(paste("Alberto Cairo's ", italic("Datasaurus")))
-  ) +
-  theme_classic()
-```
-
-
-## Finding Errors (KMM)
-
-
-## Doing the same thing to lots of things (EGK)
-
-
-## Making beautiful figures (KMM)
-
-![](https://cdn.fosstodon.org/media_attachments/files/116/209/557/460/653/062/original/ce83839bc0622920.png)
-
-
-## Stats (the hard way now is the easy way later) & redoing stats & analysis reports (EGK)
-
-
-## Reproducible instructions & code (KMM)
-
-
-## Slides & presentations & papers & websites & CV (KMM)
+- [R](https://www.r-project.org/): Statistical programming language
+- [RStudio](https://posit.co/download/rstudio-desktop): Graphical user interface for R
+- [Quarto](https://quarto.org/){target="_blank"}: Markdown language for mixing code, text, and visualization (included with RStudio)
 
 
 ## Introduction to R/RStudio & Reproducibility
@@ -603,37 +540,71 @@ ggplot(ds, aes(x = x, y = y)) +
 - You can do all of these things in other languages (some easier and many more difficult)
 - R enforces an "ask for what you want" statistical approach
 
+> The term "environment" is intended to characterize it as a fully planned and coherent system, rather than an incremental accretion of very specific and inflexible tools, as is frequently the case with other data analysis software.
+
+
+## Modern scientists are programmers
+
+- Most code written for yourself or your collaborators
+- 95% of your analysis time is spent _not_ doing statistics.
+    - Wrangling data
+    - Plotting data
+- Invest time now in learning the logic of programming. Save time later.
+- Reproducibility. You always know what you did.
+    - Code with comments reads as a step-by-step of your analysis
+- This is a process.
+    - It takes time to become comfortable.
+
+
+## What is reproducible research?
+
+> "By reproducible, I mean that your work can be repeated by other researchers and they can arrive at the same results. For this to be the case, your work must be well documented, and your methods, code, and data all need to be available so that other researchers have the materials to reproduce everything."
+
+[Buffalo (2015)]{style="float: right;"}
+
+
+## R Markdown (`.rmd`) / Quarto (`.qmd`)
+
+- Text-based markup languages (i.e., HTML)
+- Render to different formats (PDF, HTML, Word)
+- Inline code
+    - Your text and analysis coexist together in one file
+- Resources
+    - Markdown information
+    - Guides and Tutorials
+
+
+## Markdown-based analyses
+
+- More than just comments
+- Add context to your analysis
+- Narrative, figures, tables, etc. all in one document
+
+
+
+# Let's practice {background-color="#2c488f"}
+
+
+## These materials are online
+
+- Slides: [https://tinyurl.com/GPC-R-Intro](https://tinyurl.com/GPC-R-Intro)
+- Data: [https://tinyurl.com/NHANES-Data](https://tinyurl.com/NHANES-Data)
+
+
+## Discussion
+
+- What do you need for what you want to use R for?
+
 
 # Roadmaps for different levels of learners {background-color="#2c488f"}
 
-## What is your current skill level/experience?
+## Resources
+
+[https://tinyurl.com/QMLS-Resources](https://tinyurl.com/QMLS-Resources)
+
 
 ## Roadmaps for different levels of learners
 
 QR code for each then slide with grid of instructions
 
 # Roadmaps for different specific skills {background-color="#2c488f"}
-
-
-
-
-
-## Slide 2
-
-[Quarto]{.blue} enables you to weave together [content]{.yellow} and [executable code]{.yellow} into a **finished presentation**. To learn more about [Quarto]{.blue} presentations see <https://quarto.org/docs/presentations/>.
-
-## Fenced divs
-
-::: blue
-Some paragraph.
-:::
-
-or
-
-::: {.yellow}
-Some paragraph.
-:::
-
-## Links
-
-https://slidecrafting-book.com/scss
