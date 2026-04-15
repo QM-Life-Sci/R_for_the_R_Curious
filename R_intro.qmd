@@ -68,17 +68,20 @@ library(tidyverse)
 - Kid:
     - Computers around
     - Lots of programming
+- College:
+    - Biology
 - Graduate student:
-    - Refused to take statisticsDid a little "analysis automation" with scripts
+    - Refused to take statistics
+    - Did a little "analysis automation" with scripts
     - Tried R a few times and gave up -- "What am I supposed to do with this: `>`?"
 
 
 ## Kevin's History
 
 - Post-doc:
-    - SAS / SPSS,
+    - SAS / SPSS / Matlab
     - Tried R a few more times and gave up
-        - Needed to do something that was only in R
+        - Needed to do something that was only available in R
         - Learned enough R to do that one thing
         - Liked it and learned more
 - Faculty member:
@@ -115,7 +118,7 @@ setwd(
 
 # Read the data in to a vector
 # bonep_reduced_further.txt is a plain text file with 1 p value per row
-# 	This file was created using the p vaules from the final tables of the
+# 	This file was created using the p values from the final tables of the
 #	g16 bone manuscript
 pvals <- scan("pvalues_final.txt")
 
@@ -245,11 +248,14 @@ qwrite(qobj.lambda0_0.10, file = "qobj.lambda0_0.10.txt")
 - 2010: First graduate course
 - 2011-2012: Undergraduate courses
 - 2016: First graduate course at MU
-- 2017: Start co-teaching Quantitative Methods in Life Sciences
+- 2017: Start co-teaching Quantitative Methods in Life Sciences with Libby
 - 2025-2026: Undergraduate courses at MU
 
 
-## Why are you here?
+## Libby's History
+
+
+# Some questions about you {background-color="#2c488f"}
 
 
 ## Outline
@@ -260,7 +266,7 @@ qwrite(qobj.lambda0_0.10, file = "qobj.lambda0_0.10.txt")
 - Roadmaps for different specific skills
 
 
-# Use Cases
+# Use Cases {background-color="#2c488f"}
 
 
 ## Creating a data sheet (EGK)
@@ -294,11 +300,13 @@ dat.tab |>
 
 ```
 
+
 ## Joining & pivoting (EGK)
 
 - note - one ds for set up, one for data in cols
 - join on set up date
 - pivot on cols
+
 
 ## Exploratory Data Analysis
 
@@ -337,6 +345,7 @@ ggplot(ds, aes(x = x, y = y)) +
 
 ## Finding Errors (KMM)
 
+
 ## Doing the same thing to lots of things (EGK)
 
 
@@ -361,16 +370,16 @@ ggplot(ds, aes(x = x, y = y)) +
 - R enforces an "ask for what you want" statistical approach
 
 
-# Roadmaps for different levels of learners
+# Roadmaps for different levels of learners {background-color="#2c488f"}
 
 ## What is your current skill level/experience?
 
 ## Roadmaps for different levels of learners
+
 QR code for each then slide with grid of instructions
 
-# Roadmaps for different specific skills
+# Roadmaps for different specific skills {background-color="#2c488f"}
 
-## What do you most want to learn/get better at?
 
 
 

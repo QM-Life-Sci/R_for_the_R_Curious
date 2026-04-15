@@ -7,11 +7,31 @@
   "settings": {
     "cSpell.words": [
       "abline",
+      "Benjamini",
+      "bonep",
+      "cbind",
+      "Dabney",
       "Datasaurus",
+      "datatable",
+      "hedenfalk",
+      "Hochberg",
       "knitr",
+      "lamdba",
+      "pvals",
+      "pvalues",
+      "qobj",
+      "qplot",
+      "qsummary",
       "qvalue",
+      "qvalues",
+      "qwrite",
       "revealjs",
-      "Scatterplot"
+      "Scatterplot",
+      "setwd",
+      "SPSS",
+      "tibble",
+      "xlab",
+      "ylab"
     ]
   }
 }

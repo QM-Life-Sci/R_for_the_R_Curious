@@ -4,7 +4,7 @@
 
 $presentation-heading-font: "Fira Sans", sans-serif;
 $font-family-sans-serif: "Lato", sans-serif;
-$font-family-monospace: "Space Mono", monospace;
+$font-family-monospace: "Fira Sans Mono", monospace;
 
 @function theme-color($color) {
   @return map-get($colors, $color);
@@ -28,7 +28,7 @@ $body-color: theme-color("darkblue");
 $presentation-font-size-root: 35px;
 $presentation-h1-font-size: 70px;
 $presentation-h2-font-size: 50px;
-$code-block-font-size: 0.7em;
+$code-block-font-size: 0.6em;
 
 
 /*-- scss:rules --*/
@@ -47,10 +47,6 @@ $code-block-font-size: 0.7em;
   text-decoration: underline;
 }
 
-.reveal .slides section:has(> h1) {
-  background-color: theme-color("darkblue");
-
-  h1 {
-    color: theme-color("white");
-  }
+.reveal .slides section:has(> h1):not(.quarto-title-block) h1 {
+  color: theme-color("white");
 }
