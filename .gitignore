@@ -51,3 +51,4 @@ po/*~
 # RStudio Connect folder
 rsconnect/
 /First_document_files
+.DS_Store
